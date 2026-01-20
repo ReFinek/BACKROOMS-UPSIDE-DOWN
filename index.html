@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKROOMS: UPSIDE-DOWN — Дизайн-документ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Exo+2:wght@700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0805;
+            --content-bg: rgba(15, 13, 7, 0.75);
+            --accent-color: #e6a800;
+            --text-color: #f0e6d2;
+            --header-color: #f8f0e0;
+            --nav-bg: rgba(8, 6, 3, 0.92);
+            --border-color: rgba(230, 168, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            color: var(--text-color);
+            background: #080603 url('bg.png') center/cover no-repeat fixed;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 130px;
+        }
+
+        /* Фон с лёгким блюром */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(2px);
+            z-index: -2;
+        }
+
+        /* Тень под шапкой — создаёт эффект "ухода под неё" */
+        .header-bar::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+            pointer-events: none;
+            z-index: 1001;
+        }
+
+        .header-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-title-bar {
+            width: 100%;
+            background: var(--primary-bg);
+            text-align: center;
+            padding: 8px 0;
+            font-family: 'Creepster', cursive;
+            font-size: clamp(1.9rem, 4.8vw, 3.2rem);
+            color: var(--header-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            line-height: 1.1;
+        }
+
+        .nav-container {
+            width: 100%;
+            background: var(--nav-bg); /* Почти непрозрачная, но не совсем */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: 'Inconsolata', monospace;
+            transition: background 0.2s ease;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(230, 168, 0, 0.12);
+            color: white;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 30px 30px;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+            margin: 25px 0 12px;
+            color: var(--header-color);
+            text-align: center;
+            font-family: 'Inconsolata', monospace;
+            font-weight: 700;
+        }
+
+        h2::before {
+            content: '•';
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-size: 1.6rem;
+            position: relative;
+            top: 2px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            line-height: 1.7;
+            text-align: center;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            background: var(--content-bg);
+            border: 1px solid rgba(230, 168, 0, 0.1);
+        }
+
+        .in-progress {
+            background: rgba(20, 18, 10, 0.7);
+            border: 1px dashed var(--accent-color);
+            text-align: center;
+            padding: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-family: 'Inconsolata', monospace;
+        }
+
+        @media (max-width: 900px) {
+            .nav-link { font-size: 12px; padding: 10px 12px; }
+            body { padding-top: 110px; }
+            .main-title-bar { font-size: clamp(1.7rem, 5.2vw, 2.6rem); padding: 7px 0; }
+        }
+
+        @media (max-width: 600px) {
+            .main-title-bar { font-size: clamp(1.6rem, 6vw, 2.4rem); padding: 6px 0; }
+            h2 { font-size: 1.4rem; }
+            p { font-size: 1rem; }
+            .document-container { padding: 0 15px 20px; }
+            body { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-bar">
+        <div class="main-title-bar">
+            BACKROOMS: UPSIDE-DOWN
+        </div>
+        <div class="nav-container">
+            <a href="#platforms" class="nav-link">Платформы</a>
+            <a href="#technologies" class="nav-link">Технологии</a>
+            <a href="#language" class="nav-link">Язык</a>
+            <a href="#audience" class="nav-link">Аудитория</a>
+            <a href="#genre" class="nav-link">Жанр</a>
+            <a href="#mood" class="nav-link">Настроение</a>
+            <a href="#age" class="nav-link">Возраст</a>
+            <a href="#mode" class="nav-link">Режим</a>
+            <a href="#duration" class="nav-link">Длительность</a>
+            <a href="#mechanics" class="nav-link">Механики</a>
+            <a href="#world" class="nav-link">Мир</a>
+            <a href="#interface" class="nav-link">Интерфейс</a>
+            <a href="#balance" class="nav-link">Баланс</a>
+            <a href="#story" class="nav-link">История</a>
+            <a href="#gameplay" class="nav-link">Геймплей</a>
+        </div>
+    </div>
+
+    <div class="document-container">
+        <div class="section" id="platforms"><h2>Платформы</h2><p>PC (Windows, Linux). Потенциальная адаптация под VR в будущих обновлениях, также версия для консолей рассматривается после успешного запуска на ПК.</p></div>
+        <div class="section" id="technologies"><h2>Технологии</h2><p>Unity 6 LTS с URP (Universal Render Pipeline) для оптимизации графики под разные платформы. Используем язык C# для логики игры. </p></div>
+        <div class="section" id="language"><h2>Язык</h2><p>Основной язык разработки - C#. Локализация: русский и английский. Планируется добавление нескольких смешных языков таких как албанский, татжитский и прочие после релиза.</p></div>
+        <div class="section" id="audience"><h2>Аудитория</h2><p>Школьники, студенты, любители хорроров, фанаты Backrooms и лиминальных пространств.</p></div>
+        <div class="section" id="genre"><h2>Жанр</h2><p>Survival / Исследовательский хоррор / Леминальный хоррор.</p></div>
+        <div class="section" id="mood"><h2>Настроение</h2><p>Гнетущая атмосфера одиночества в лиминальных пространствах. Постоянное ощущение дежавю, нарушение законов физики, искажённые звуки, мерцающее освещение. Акцент на отмосфере странности и неизвестности.</p></div>
+        <div class="section" id="age"><h2>Возрастное ограничение</h2><p>67+ в игре есть мать Габена.</p></div>
+        <div class="section" id="mode"><h2>Количество пользователей, режим</h2><p>Основной режим — одиночная игра как раз таки и нужная для создания атмосферы одиночества. В будущем возможен кооперативный режим (2-4 игрока) Чисто пофаниться походить по смешным коридорчикам со сломанной коллизией).</p></div>
+        <div class="section" id="duration"><h2>Время, место и длительность игры</h2><p>Место действия — бесконечные уровни Backrooms. Время суток и календарь отсутствуют — только вечные лиминальные пространства. Длительность прохождения непредсказуема: от 5 минут до 15+ часов из-за процедурной генерации, по сути каждый запуск новой игры чисчтый рандом, условно кнопка выхода может на ходиться за первым же поворотом, а может и вообще отсутствовать на определенном уровне.</p></div>
+        <div class="section" id="mechanics"><h2>Главная игровая механика</h2><p>Процедурная генерация уровней, создаёт уникальные конфигурации при каждом запуске, Ключевая механика — ноуклип (noclip) причем как случайный, так и осознанный с помощью всяких смешных вандервафель, условно игрок может проходить сквозь стены в рандомных точках без коллизии, которые становятся видны только при наличии неких "очков". Шанс найти комнату с такими очками довольно мал, не удивительно учитывая что они позволяют осознанно видеть все ноуклипные места и выбирать куда влететь. также возможно добавление предмета позваляющего настраивать такие точки на "определенную частоту" по сути указывая куда будет переносить игрока ноуклип, в купе с очками будет ТАКОЕ ВЗРЫВНОЕ КОМ...</p></div>
+        <div class="section" id="mechanics-map"><h2>Описание игровых механик и управление / Карта игрового процесса</h2><div class="in-progress">В ДОРАБОТКЕ ПОКА ЧТО СТОЯТЬ</div></div>
+        <div class="section" id="world"><h2>Визуал игрового мира</h2><p>Визуал будет отличаться на разных уровнях закулисья, где то светлый дружелюбный, где то враждебный, где то угнетающий, нет какого либо общего стиля, но приводя в пример первый дефолтный уровень - желтые офисные коридоры, ковролиновый пол, старые потускневшие обои, потолочная офисная плитка с флюерисцентными лампами.</p></div>
+        <div class="section" id="interface"><h2>Визуал постоянного интерфейса</h2><div class="in-progress">В ДОРАБОТКЕ</div></div>
+        <div class="section" id="balance"><h2>Баланс</h2><p>ЕГО НЕТ, твоя удача пролностью решает твою участь.</p></div>
+        <div class="section" id="story"><h2>История</h2><p>Нет линейного сюжета. История формируется через найденные артефакты, возможно добавление записок по типу дневников предыдущих "путешественников", также зашифрованные сообщения на стенах, возможны также аудиозаписи обрывков воспоминаний но это уже после релиза. Основная загадка: почему игрок попал сюда и есть ли связь между уровнями а главная есть ли выход обратно в реальный мир и существует ли он вообще в контексте игры?</p></div>
+        <div class="section" id="gameplay"><h2>Гейплей</h2><p>Игрок исследует уровни в поисках выхода. Основные действия: ходьба, бег (ограниченный по выносливости), взаимодействие с объектами. Самый имбовый предмет — "очки", позволяющие видеть скрытые ноуклип-точки, без них игрок по сути будет полностью во власти рандома. Система "ментального здоровья" и "физического здоровья": длительное пребывание в одиночестве или визуальные триггеры снижают ментальное здоровье, влияя на восприятие мира (появление галлюцинаций), различные сущности способны влиять на физическое здоровье игрока</p></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        const offset = 130;
+                        const pos = target.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: pos, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        const activeLink = document.querySelector(`a[href="#${entry.target.id}"]`);
+                        if (activeLink) activeLink.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
