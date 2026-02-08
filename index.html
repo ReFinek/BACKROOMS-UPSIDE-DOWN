@@ -6,6 +6,13 @@
     <title>BACKROOMS: UPSIDE-DOWN — Дизайн-документ</title>
     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Exo+2:wght@700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'BackroomsTitle';
+            src: url('title.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,26 +20,36 @@
         }
 
         :root {
-            --primary-bg: #0a0805;
-            --content-bg: rgba(15, 13, 7, 0.75);
-            --accent-color: #e6a800;
-            --text-color: #f0e6d2;
-            --header-color: #f8f0e0;
-            --nav-bg: rgba(8, 6, 3, 0.92);
-            --border-color: rgba(230, 168, 0, 0.2);
+            /* Цвета в стиле Backrooms - желтые, коричневые, серые тона */
+            --primary-bg: #f5f5dc; /* Бумага */
+            --content-bg: rgba(245, 245, 220, 0.85); /* Бумага с прозрачностью */
+            --accent-color: #e6a800; /* Золотой/желтый */
+            --text-color: #3a3a3a; /* Темно-серый */
+            --header-color: #2d2d2d; /* Почти черный */
+            --nav-bg: rgba(255, 255, 240, 0.95); /* Светлая бумага */
+            --border-color: rgba(230, 168, 0, 0.3);
+            --shadow-color: rgba(0, 0, 0, 0.15);
         }
 
         body {
             font-family: 'Exo 2', sans-serif;
             color: var(--text-color);
-            background: #080603 url('bg.png') center/cover no-repeat fixed;
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8e8d3 50%, #d4d4b8 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             line-height: 1.6;
             min-height: 100vh;
             position: relative;
-            padding-top: 130px;
+            padding-top: 140px;
         }
 
-        /* Фон с лёгким блюром */
+        /* Плавная анимация фона */
+        @keyframes gradientBG {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Эффект зернистости для атмосферы */
         body::before {
             content: '';
             position: fixed;
@@ -40,20 +57,23 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: inherit;
-            filter: blur(2px);
-            z-index: -2;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(230, 168, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(230, 168, 0, 0.05) 0%, transparent 20%),
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.02) 10px, rgba(0, 0, 0, 0.02) 20px);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* Тень под шапкой — создаёт эффект "ухода под неё" */
+        /* Тень под шапкой */
         .header-bar::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
             width: 100%;
-            height: 10px;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
+            height: 15px;
+            background: linear-gradient(to bottom, var(--shadow-color), transparent);
             pointer-events: none;
             z-index: 1001;
         }
@@ -66,115 +86,249 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 4px 20px var(--shadow-color);
         }
 
         .main-title-bar {
             width: 100%;
-            background: var(--primary-bg);
+            background: linear-gradient(120deg, #f5f5dc 0%, #e8e8d3 100%);
             text-align: center;
-            padding: 8px 0;
-            font-family: 'Creepster', cursive;
-            font-size: clamp(1.9rem, 4.8vw, 3.2rem);
+            padding: 12px 0;
+            font-family: 'BackroomsTitle', 'Creepster', cursive;
+            font-size: clamp(2.2rem, 5.2vw, 3.8rem);
             color: var(--header-color);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
             line-height: 1.1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Эффект мерцания для заголовка */
+        .main-title-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(230, 168, 0, 0.2), transparent);
+            animation: flicker 8s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
         }
 
         .nav-container {
             width: 100%;
-            background: var(--nav-bg); /* Почти непрозрачная, но не совсем */
+            background: var(--nav-bg);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 0;
             padding: 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .nav-link {
             color: var(--text-color);
             text-decoration: none;
-            padding: 12px 16px;
-            font-size: 13px;
-            font-weight: bold;
+            padding: 14px 18px;
+            font-size: 14px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             font-family: 'Inconsolata', monospace;
-            transition: background 0.2s ease;
+            transition: all 0.3s ease;
             margin: 0;
             border-radius: 0;
+            position: relative;
+            border-right: 1px solid rgba(230, 168, 0, 0.1);
+        }
+
+        .nav-link:last-child {
+            border-right: none;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: rgba(230, 168, 0, 0.12);
-            color: white;
+            background: rgba(230, 168, 0, 0.15);
+            color: var(--header-color);
+            box-shadow: inset 0 -3px 0 var(--accent-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
         }
 
         .document-container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            padding: 0 30px 30px;
+            padding: 0 30px 40px;
         }
 
         h2 {
-            font-size: 1.7rem;
-            margin: 25px 0 12px;
+            font-size: 1.9rem;
+            margin: 30px 0 15px;
             color: var(--header-color);
             text-align: center;
             font-family: 'Inconsolata', monospace;
             font-weight: 700;
+            position: relative;
+            padding-bottom: 8px;
         }
 
         h2::before {
             content: '•';
             color: var(--accent-color);
-            margin-right: 10px;
-            font-size: 1.6rem;
+            margin-right: 12px;
+            font-size: 1.8rem;
             position: relative;
             top: 2px;
         }
 
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
         p {
-            font-size: 1.1rem;
-            margin-bottom: 16px;
-            line-height: 1.7;
-            text-align: center;
+            font-size: 1.15rem;
+            margin-bottom: 18px;
+            line-height: 1.8;
+            text-align: justify;
             font-family: 'Exo 2', sans-serif;
+            color: #4a4a4a;
         }
 
         .section {
-            margin-bottom: 25px;
-            padding: 20px;
-            border-radius: 8px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 10px;
             background: var(--content-bg);
-            border: 1px solid rgba(230, 168, 0, 0.1);
+            border: 2px solid rgba(230, 168, 0, 0.15);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
         }
 
         .in-progress {
-            background: rgba(20, 18, 10, 0.7);
-            border: 1px dashed var(--accent-color);
+            background: rgba(255, 255, 240, 0.9);
+            border: 2px dashed var(--accent-color);
             text-align: center;
-            padding: 20px;
-            font-size: 1.4rem;
+            padding: 25px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--accent-color);
             font-family: 'Inconsolata', monospace;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .in-progress::before {
+            content: '⚠️';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        /* Анимация для секций при загрузке */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+        .section:nth-child(7) { animation-delay: 0.7s; }
+        .section:nth-child(8) { animation-delay: 0.8s; }
+        .section:nth-child(9) { animation-delay: 0.9s; }
+        .section:nth-child(10) { animation-delay: 1.0s; }
+        .section:nth-child(11) { animation-delay: 1.1s; }
+        .section:nth-child(12) { animation-delay: 1.2s; }
+        .section:nth-child(13) { animation-delay: 1.3s; }
+        .section:nth-child(14) { animation-delay: 1.4s; }
+        .section:nth-child(15) { animation-delay: 1.5s; }
+        .section:nth-child(16) { animation-delay: 1.6s; }
+
+        /* Мобильная адаптация */
         @media (max-width: 900px) {
-            .nav-link { font-size: 12px; padding: 10px 12px; }
-            body { padding-top: 110px; }
-            .main-title-bar { font-size: clamp(1.7rem, 5.2vw, 2.6rem); padding: 7px 0; }
+            .nav-link { 
+                font-size: 12px; 
+                padding: 12px 14px;
+                letter-spacing: 0.5px;
+            }
+            body { padding-top: 120px; }
+            .main-title-bar { 
+                font-size: clamp(2.0rem, 5.6vw, 3.2rem); 
+                padding: 10px 0;
+                letter-spacing: 2px;
+            }
+            .section { padding: 20px; }
         }
 
         @media (max-width: 600px) {
-            .main-title-bar { font-size: clamp(1.6rem, 6vw, 2.4rem); padding: 6px 0; }
-            h2 { font-size: 1.4rem; }
-            p { font-size: 1rem; }
-            .document-container { padding: 0 15px 20px; }
-            body { padding-top: 100px; }
+            .main-title-bar { 
+                font-size: clamp(1.8rem, 6.5vw, 2.8rem); 
+                padding: 8px 0;
+                letter-spacing: 1px;
+            }
+            h2 { font-size: 1.5rem; }
+            p { font-size: 1.05rem; line-height: 1.7; }
+            .document-container { padding: 0 15px 25px; }
+            body { padding-top: 110px; }
+            .nav-link {
+                font-size: 11px;
+                padding: 10px 12px;
+                border-right: none;
+                border-bottom: 1px solid rgba(230, 168, 0, 0.1);
+            }
+            .nav-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -204,7 +358,7 @@
 
     <div class="document-container">
         <div class="section" id="platforms"><h2>Платформы</h2><p>PC (Windows, Linux). Потенциальная адаптация под VR в будущих обновлениях, также версия для консолей рассматривается после успешного запуска на ПК.</p></div>
-        <div class="section" id="technologies"><h2>Технологии</h2><p>Unity 6 LTS с URP (Universal Render Pipeline) для оптимизации графики под разные платформы. Используем язык C# для логики игры. </p></div>
+        <div class="section" id="technologies"><h2>Технологии</h2><p>Unity 6 LTS с URP (Universal Render Pipeline) для оптимизации графики под разные платформы. Используем язык C# для логики игры.</p></div>
         <div class="section" id="language"><h2>Язык</h2><p>Основной язык разработки - C#. Локализация: русский и английский. Планируется добавление нескольких смешных языков таких как албанский, татжитский и прочие после релиза.</p></div>
         <div class="section" id="audience"><h2>Аудитория</h2><p>Школьники, студенты, любители хорроров, фанаты Backrooms и лиминальных пространств.</p></div>
         <div class="section" id="genre"><h2>Жанр</h2><p>Survival / Исследовательский хоррор / Леминальный хоррор.</p></div>
@@ -218,7 +372,7 @@
         <div class="section" id="interface"><h2>Визуал постоянного интерфейса</h2><div class="in-progress">В ДОРАБОТКЕ</div></div>
         <div class="section" id="balance"><h2>Баланс</h2><p>ЕГО НЕТ, твоя удача пролностью решает твою участь.</p></div>
         <div class="section" id="story"><h2>История</h2><p>Нет линейного сюжета. История формируется через найденные артефакты, возможно добавление записок по типу дневников предыдущих "путешественников", также зашифрованные сообщения на стенах, возможны также аудиозаписи обрывков воспоминаний но это уже после релиза. Основная загадка: почему игрок попал сюда и есть ли связь между уровнями а главная есть ли выход обратно в реальный мир и существует ли он вообще в контексте игры?</p></div>
-        <div class="section" id="gameplay"><h2>Гейплей</h2><p>Игрок исследует уровни в поисках выхода. Основные действия: ходьба, бег (ограниченный по выносливости), взаимодействие с объектами. Самый имбовый предмет — "очки", позволяющие видеть скрытые ноуклип-точки, без них игрок по сути будет полностью во власти рандома. Система "ментального здоровья" и "физического здоровья": длительное пребывание в одиночестве или визуальные триггеры снижают ментальное здоровье, влияя на восприятие мира (появление галлюцинаций), различные сущности способны влиять на физическое здоровье игрока</p></div>
+        <div class="section" id="gameplay"><h2>Геймплей</h2><p>Игрок исследует уровни в поисках выхода. Основные действия: ходьба, бег (ограниченный по выносливости), взаимодействие с объектами. Самый имбовый предмет — "очки", позволяющие видеть скрытые ноуклип-точки, без них игрок по сути будет полностью во власти рандома. Система "ментального здоровья" и "физического здоровья": длительное пребывание в одиночестве или визуальные триггеры снижают ментальное здоровье, влияя на восприятие мира (появление галлюцинаций), различные сущности способны влиять на физическое здоровье игрока</p></div>
     </div>
 
     <script>
@@ -233,7 +387,7 @@
                     if (targetId === '#') return;
                     const target = document.querySelector(targetId);
                     if (target) {
-                        const offset = 130;
+                        const offset = 140;
                         const pos = target.getBoundingClientRect().top + window.scrollY - offset;
                         window.scrollTo({ top: pos, behavior: 'smooth' });
                     }
